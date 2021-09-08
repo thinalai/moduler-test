@@ -1,0 +1,4 @@
+baseURL = 'http://thina.xyz/'
+languageCode = 'en-us'
+title = 'My First Hugo Site'
+theme = "ananke"
