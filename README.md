@@ -4,7 +4,7 @@
 
 Build site via Hugo.
 
-- Create a new post with random content by run `./generate.sh <Title>`.
+- Create a new post with random content by run `cd task1 && ./generate.sh <Title>`.
 - Deploy website by `[GitHub Actions](https://gohugo.io/hosting-and-deployment/hosting-on-github/)` when main branch updates.
 
 ### Dependencies tools
