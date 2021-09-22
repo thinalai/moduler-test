@@ -4,3 +4,6 @@ password: $6$zpr.wP8d$SHk1Tgk71dLMCElJ/c4doon/4wxWkPSzlrPL.OXIEeFaBDhU5JyljZ6ztr
 
 mysql_user: wiredcraft
 mysql_password: wiredcraft
+
+docker_login_name: wiredcraft
+docker_login_password: wiredcraft

@@ -1,0 +1,15 @@
+---
+- name: deploy API service
+  docker:
+    name: api service
+    image: https://registry.wiredcraft.cn/wcl/api:latest
+    username: "{{ docker_login_name }}"
+    password: "{{ docker_login_password }}"
+    expose:
+      - 3000
+    ports:
+      - "127.0.0.1:3000:3000/tcp"
+    state: started
+    env:
+      MYSQL_USER: "{{ mysql_user }}"
+      MYSQL_PASSWORD: "{{ mysql_password }}"
