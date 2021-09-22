@@ -1,0 +1,18 @@
+---
+- name: create backup destination (then to be uploaded to remote)
+  file:
+    path: /opt/mysql_backups
+    owner: "{{ user }}"
+    group: mysql
+    mode: "0774"
+    state: directory
+  tags:
+    - mysql
+
+- name: back up all databases
+  shell: |
+    backup_file="/opt/mysql_backups/{{ inventory_hostname }}-{{ ansible_date_time.date }}-{{ ansible_date_time.time }}.sql"
+    mysqldump --user={{ mysql_user }} --password="{{ mysql_password }}" --all-databases > "$backup_file"
+  tags:
+    - mysql
+#TODO: upload file to cloud object storage
