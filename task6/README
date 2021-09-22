@@ -1,0 +1,13 @@
+# Task 6. CI/CD
+
+Codebase is a simple Go web server. Do CI with GitHub Actions and CD with Azure DevOps pipelines.
+
+## CI
+
+Continuous integration via GitHub Actions. See [unit-tests.yml](../.github/workflows/unit-tests.yml).
+
+For simplicity, run `git test ./...` and send coverage report back to GitHub when action is pull request.
+
+## CD
+
+TODO.
