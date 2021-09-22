@@ -1,3 +1,6 @@
 ---
 user: wiredcraft
 password: $6$zpr.wP8d$SHk1Tgk71dLMCElJ/c4doon/4wxWkPSzlrPL.OXIEeFaBDhU5JyljZ6ztrSS5yFNfqG5m2F4zirrgLlBKhsIx/
+
+mysql_user: wiredcraft
+mysql_password: wiredcraft

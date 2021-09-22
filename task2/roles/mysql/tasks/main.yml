@@ -1,0 +1,17 @@
+---
+# assume we are using debian/ubuntu
+- name: install mysql
+  apt: name=mysql update_cache=yes cache_valid_time=3600 state=present
+
+- name: start up the mysql service
+  shell: "service mysql start"
+
+- name: ensure mysql is enabled to run on startup
+  service: name=mysql state=started enabled=true
+
+- name: create mysql user
+  mysql_user:
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_password }}"
+    priv: "*.*:ALL"
+    state: present
