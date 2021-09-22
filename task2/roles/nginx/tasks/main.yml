@@ -1,0 +1,33 @@
+---
+- name: install nginx
+  apt: name=nginx update_cache=yes cache_valid_time=3600 state=present
+
+- name: start up the nginx service
+  shell: "service nginx start"
+
+- name: ensure nginx is enabled to run on startup
+  service: name=nginx state=started enabled=true
+
+- name: copy the nginx site config file
+  copy:
+    content: |
+      server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        server_name _;
+        location / {
+          proxy_pass http://127.0.0.1:3000;
+        }
+      }
+    dest: /etc/nginx/sites-available/api.cfg
+
+- name: create symlink
+  file:
+    src: /etc/nginx/sites-available/api.cfg
+    dest: /etc/nginx/sites-enabled/default
+    state: link
+
+- name: restart nginx
+  service:
+    name: nginx
+    state: restarted
