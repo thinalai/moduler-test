@@ -2,12 +2,46 @@
 
 Codebase is a simple Go web server. Do CI with GitHub Actions and CD with Azure DevOps pipelines.
 
+Use Docker hub for image registry.
+
 ## CI
 
-Continuous integration via GitHub Actions. See [unit-tests.yml](../.github/workflows/unit-tests.yml).
+Continuous integration does two things:
+
+- Unit tests via GitHub Actions.
+- Build and push docker image via Azure DevOps Pipeline.
+
+### Unit tests
+
+See [unit-tests.yml](../.github/workflows/unit-tests.yml).
 
 For simplicity, run `git test ./...` and send coverage report back to GitHub when action is pull request.
 
+### Build docker image
+
+See [azure-pipelines.yml](../azure-pipelines.yml).
+
+Steps:
+
+- Create a repository on [Docker Hub](https://hub.docker.com/repositories).
+- Create an `Access Token` on [Docker Hub](https://hub.docker.com/settings/security).
+- Create a service connection for Docker Hub on Azure DevOps. Follow the [docs](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/service-endpoints?view=azure-devops&tabs=yaml#docker-registry-service-connection).
+- Create a pipeline on [Azure DevOps](https://dev.azure.com/). Use `$(Build.BuildId)` as image TAG.
+
 ## CD
 
-TODO.
+Continuous Deployment via Azure DevOps `Release Pipeline` or `Build Pipeline`.
+
+### CD by Release Pipeline
+
+Firstly, create a deployment group for the service endpoints and add virtual machines into the group.
+
+Secondly, create a [release pipeline](https://dev.azure.com/thinalai/thinalai.github.io/_releaseDefinition?definitionId=1&_a=environments-editor-preview) with the artifact from build pipeline and the stage with a job which runs on deployment group within a bash task executes deploy script.
+
+So far, release pipeline will be triggered when build pipeline has finished.
+
+### CD by Build Pipeline
+
+Firstly, create a environment and add VM resources.
+
+Secondly, add `deployment job` to the build pipeline by referencing the environment. Follow the [docs](https://docs.microsoft.com/en-us/azure/devops/pipelines/ecosystems/deploy-linux-vm?view=azure-devops&tabs=java-script#define-cd-steps-to-deploy-to-the-linux-vm).
